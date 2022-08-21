@@ -4,14 +4,14 @@ export interface User {
 }
 export interface UserDB{
   userID: number;
-  isVenue: boolean;
+  isVenue: number;
   username: string;
   displayName: string;
   dates?: string;
   preview?: string;
   payment?: number;
   description?: string;
-  published: boolean;
+  published: number;
 }
 export interface ServerToClientEvents {
   noArg: () => void;
