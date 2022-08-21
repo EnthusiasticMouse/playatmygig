@@ -1,0 +1,98 @@
+@use '../../styles/variables.scss' as colors;
+.profileBackground{
+  background-color: red;
+  width: 100%;
+  border-top: 0;
+  position: relative;
+  overflow: hidden;
+  img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+}
+#title{
+  color: black;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+#profilePic{
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  object-fit: fill;
+  height: 70px;
+  img{
+    width: 100px;
+    top: -50px;
+    position: absolute;
+    height: 100px;
+    clip-path: circle(50px);
+  }
+}
+.loginBox{
+  margin: auto;
+  margin-top: 30px;
+  border: 1px solid colors.$Gray;
+  padding: 20px;
+  h2{
+    font-size: 1.2em;
+    padding: 2rem 0;
+  }
+  form{
+    overflow: hidden;
+    label{
+      color: colors.$DarkBlue;
+    }
+    input{
+      font-size: 1.3rem;
+      margin: 10px;
+      padding: 3px 10px;
+    }
+    input[type="text"]:focus{
+      outline-color: colors.$DarkBlue;
+    }
+    input[type="text"]{
+      display: inline-block;
+      width: 90%;
+      border-color: colors.$Gray;
+      border-style: solid;
+    }
+    input[type="submit"]{
+      background-color: colors.$DarkBlue;
+      border: 0;
+      color: colors.$White;
+      font-size: 1.1rem;
+    }
+    input[type="submit"]:hover{
+      text-decoration: underline;
+    }
+  }
+}
+.links{
+  a{
+    background-color: colors.$DarkBlue;
+    border: 0;
+    color: colors.$White;
+    text-decoration: none;
+    font-size: 1.3rem;
+    margin: 10px;
+    padding: 3px 10px;
+    font-size: 1.1rem;
+    background-color: rgb(209, 144, 46);
+  }
+  a:last-of-type{
+    background-color: #25a741;
+  }
+  a:hover{
+    text-decoration: underline;
+  }
+}
+@media screen and (min-width: 400px){
+  .loginBox{
+    width: 80%;
+}
+
+}

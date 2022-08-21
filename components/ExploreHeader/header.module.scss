@@ -1,0 +1,69 @@
+@use '../../styles/variables.scss' as colors;
+.navbar{
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  color: #fff;
+  list-style-type: none;
+  overflow: hidden;
+  position: sticky;
+  background-color: colors.$BackgroundBlue;
+  display: flex;
+  justify-content: center;
+  
+  li{
+    float: left;
+    cursor: pointer;
+
+    a{
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    :hover{
+      transition-duration: 150ms;
+      filter:drop-shadow(0 0 0.75rem black);
+      transform: scale(1.1);
+    }
+  }
+}
+.footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  color: #fff;
+  list-style-type: none;
+  overflow: hidden;
+  background-color: colors.$BackgroundBlue;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  .circleDiv{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .circle{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+  }
+  li{
+    cursor: pointer;
+    :hover{
+      transition-duration: 150ms;
+      transform: scale(1.05);
+      transform-origin: center;
+    }
+  }
+}

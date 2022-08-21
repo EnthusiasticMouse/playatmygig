@@ -1,0 +1,15 @@
+@use 'variables.scss' as colors;
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+* {
+  font-family: 'Inter';
+}
+body{
+  overflow-y: scroll;
+  background-color: colors.$White;
+}
+
+.page-container {
+  width: 100vw;
+  height: 100vh;
+}

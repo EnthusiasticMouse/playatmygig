@@ -1,0 +1,26 @@
+@use '../../../styles/variables.scss' as colours;
+
+.loginBox{
+  text-align: center;
+  position: absolute;
+  display: flex;
+  width: 400px;
+  right: 0;
+  color: white;
+  background-color: rgb(74, 74, 88);
+  flex-direction: column;
+  padding: 25px;
+  border-radius:   0 0 25px 25px;
+  input{
+    margin: 10px;
+    border: 0;
+  }
+  input[type="submit"]{
+    padding: 2% 5%;
+  }
+  input[type="text"]{
+    outline: 0;
+    border: 0;
+  }
+
+}

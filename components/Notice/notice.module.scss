@@ -1,0 +1,21 @@
+@use '../../styles/variables.scss' as colors;
+.mainDiv{
+  background-color: colors.$DarkBlue;
+  color: white;
+  text-align: center;
+  width: fit-content;
+  padding: 1em 2em;
+  margin: 5em auto;
+  h3{
+    font-size: 2rem;
+  }
+  div{
+    width: 80%;
+    margin: .5rem auto;
+    text-align: left;
+  }
+  span{
+    text-decoration: underline;
+    color: colors.$Gray;
+  }
+}

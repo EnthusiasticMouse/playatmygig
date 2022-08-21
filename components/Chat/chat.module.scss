@@ -1,0 +1,70 @@
+@use '../../styles/variables.scss' as colors;
+.main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-top: 10px;
+  width: 100%;
+  height: 70vh;
+  overflow: scroll;
+  overflow-X: hidden;
+  .messageDiv{
+    margin-top: 80px;
+    width: 90%;
+  }
+  .message,.messageOther{
+    background: colors.$Gray;
+    color: black;
+    padding: .5rem;
+    margin: .3rem;
+    border-radius: 10px;
+    width:fit-content;
+    margin-left: auto;
+  }
+  .message{
+    background: colors.$DarkBlue;
+    color: white;
+    margin-left: 0;
+  }
+}
+.textBox{
+  position: absolute;
+  margin: auto;
+  bottom: 80px;
+  text-align: center;
+  width: 100%;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  input{
+    padding: .5rem;
+    width: 200px;
+    height: 2.4rem;
+    border: 0;
+    background-color: colors.$Gray;
+  }
+  input:focus{
+    outline: 0;
+    border: 0;
+  }
+  input::placeholder{
+    font-size: 1.2rem;
+  }
+  button{
+    padding: .5rem;
+    height: 2.4rem;
+    width: 100px;
+    background: colors.$DarkBlue;
+    color: white;
+  }
+}
+@media screen and (min-width: 400px){
+  .main{
+    width: 40%;
+  }
+  .messageDiv{
+    width: 60%;
+  }
+}
