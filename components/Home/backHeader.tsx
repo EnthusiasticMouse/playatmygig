@@ -7,10 +7,10 @@ const backHeader: FC<{name: string }> = ({ name }) => {
   const router = useRouter()
   return (
     <>
+      <div id={styles.backbtn}>
+        <a onClick={() => router.back()}> back </a>
+      </div>
       <ul className={styles.navbar}>
-        <li>
-            <a onClick={() => router.back()}> back </a>
-        </li>
         <li id={styles.name}>
           <a> {name} </a>
         </li>
