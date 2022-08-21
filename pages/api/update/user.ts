@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import executeQuery from '../../../utils/db';
-import { withSessionRoute } from "../../../lib/withSession";
+import { withSessionRoute } from "../../../utils/lib/withSession";
 
 const User = async(req: NextApiRequest, res: NextApiResponse) => {
   console.log("username:")

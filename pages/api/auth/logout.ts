@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { withSessionRoute } from "../../../lib/withSession";
+import { withSessionRoute } from "../../../utils/lib/withSession";
 
 export default withSessionRoute(
   async function logoutRoute(req : NextApiRequest,res :NextApiResponse) {

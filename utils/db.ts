@@ -1,4 +1,13 @@
 import mysql from 'serverless-mysql';
+/*const db = mysql({
+  config: {
+    host: "62.171.183.164",
+    port: 3306,
+    database: "todoListDB",
+    user: "root",
+    password: "tE27dmNnNCWgf2"
+  }
+});*/
 const db = mysql({
   config: {
     host: process.env.DB_HOST,

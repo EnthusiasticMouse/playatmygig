@@ -3,7 +3,7 @@ import Header from '../../components/ExploreHeader/header';
 import Footer from '../../components/Footer/footer';
 import Artist from '../../components/Artist/artist';
 import { UserDB} from '../../types/types';
-import { withSessionSsr } from "../../lib/withSession";
+import { withSessionSsr } from "../../utils/lib/withSession";
 
 export const getServerSideProps = withSessionSsr(
   async function getServerSideProps({ req }) {

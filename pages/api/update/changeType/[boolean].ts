@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { withSessionRoute } from "../../../../lib/withSession";
+import { withSessionRoute } from "../../../../utils/lib/withSession";
 import executeQuery from '../../../../utils/db';
 
 export default withSessionRoute(type);

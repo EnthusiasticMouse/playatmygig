@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import Header from "../../components/Home/Header";
 import Footer from "../../components/Footer/footer";
 import styles from "./chat.module.scss";
-import { withSessionSsr } from "../../lib/withSession";
+import { withSessionSsr } from "../../utils/lib/withSession";
 import executeQuery from "../../utils/db";
 import Image from "next/image";
 

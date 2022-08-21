@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import Footer from '../components/Footer/footer';
 import Header from '../components/Home/Header'
 import Notice from '../components/Notice/notice';
-import { withSessionSsr } from "../lib/withSession";
+import { withSessionSsr } from "../utils/lib/withSession";
 export const getServerSideProps = withSessionSsr(
   async function getServerSideProps({ req }) {
     if (req.session.user !== undefined) {

@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Footer from "../../components/Footer/footer";
 import Header from "../../components/Home/Header";
-import { withSessionSsr } from "../../lib/withSession";
+import { withSessionSsr } from "../../utils/lib/withSession";
 import executeQuery from "../../utils/db";
 import { useState } from "react";
 import { UserDB } from "../../types/types";

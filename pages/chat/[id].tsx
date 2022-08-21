@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import BackHeader from "../../components/Home/backHeader";
 import Footer from "../../components/Footer/footer";
-import { withSessionSsr } from "../../lib/withSession";
+import { withSessionSsr } from "../../utils/lib/withSession";
 import { Message } from "../../types/types";
 import Chat from "../../components/Chat/chat";
 import executeQuery from "../../utils/db";

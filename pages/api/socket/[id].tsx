@@ -3,7 +3,7 @@ import { Server } from "socket.io";
 import messageHandler from "../../../utils/sockets/messageHandler";
 import executeQuery from "../../../utils/db";
 
-import { withSessionRoute } from "../../../lib/withSession";
+import { withSessionRoute } from "../../../utils/lib/withSession";
 
 export default withSessionRoute(socketHandler);
 

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { withSessionSsr } from "../../lib/withSession";
+import { withSessionSsr } from "../../utils/lib/withSession";
 import  executeQuery  from "../../utils/db";
 import {UserDB} from '../../types/types';
 import {FC} from 'react';
@@ -12,8 +12,8 @@ export const getServerSideProps = withSessionSsr(
     const {venueID} = query;
     if (venueID !== undefined && req.session.user !== undefined) {
       const userID = parseInt(venueID as string)
-      const response = await executeQuery(`SELECT displayName,userID,description,payment,dates,username,isVenue from tblUsers WHERE isVenue=1 AND userID=${userID}`) as UserDB[];
-      if(response.length  > 0){
+      const response = await executeQuery(`SELECT displayName,userID,description,payment,dates,username,isVenue,published from tblUsers WHERE isVenue=1 AND userID=${userID}`) as UserDB[];
+      if(response.length  > 0  && response[0].published == 1){
         return {
           props:{
             theirID: userID,
