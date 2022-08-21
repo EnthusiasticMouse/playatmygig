@@ -15,13 +15,14 @@ export const getServerSideProps = withSessionSsr(
     const {artistID} = query;
     if (artistID !== undefined && req.session.user !== undefined) {
       const userID = parseInt(artistID as string)
-      const response = await executeQuery(`SELECT displayName,userID,description,username from tblUsers WHERE isVenue=0 AND userID=${userID}`) as UserDB[];
+      const response = await executeQuery(`SELECT displayName,userID,description,username,isVenue from tblUsers WHERE isVenue=0 AND userID=${userID}`) as UserDB[];
       if(response.length > 0){
         return {
           props:{
             theirID: userID,
             userID: req.session.user.id,
             username: response[0].username,
+            isVenue: response[0].isVenue,
             displayName: response[0].displayName,
             description:response[0].description,
           }
@@ -32,6 +33,7 @@ export const getServerSideProps = withSessionSsr(
     return {
       props: {
         theirID: 0,
+        isVenue: 0,
         userID: 0,
         username: "",
         displayName: "",
@@ -45,7 +47,6 @@ export const getServerSideProps = withSessionSsr(
 const artistPage : FC<user>= ( props) => {
   const router = useRouter()
   const { artistID } = router.query
-
   return (
     <>
     <VisitHeader name="artists"/>

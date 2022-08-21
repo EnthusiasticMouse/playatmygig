@@ -12,11 +12,12 @@ export const getServerSideProps = withSessionSsr(
     const {venueID} = query;
     if (venueID !== undefined && req.session.user !== undefined) {
       const userID = parseInt(venueID as string)
-      const response = await executeQuery(`SELECT displayName,userID,description,payment,dates,username from tblUsers WHERE isVenue=1 AND userID=${userID}`) as UserDB[];
+      const response = await executeQuery(`SELECT displayName,userID,description,payment,dates,username,isVenue from tblUsers WHERE isVenue=1 AND userID=${userID}`) as UserDB[];
       if(response.length  > 0){
         return {
           props:{
             theirID: userID,
+            isVenue: response[0].isVenue,
             userID: req.session.user.id,
             username: response[0].username,
             displayName: response[0].displayName,
@@ -32,6 +33,7 @@ export const getServerSideProps = withSessionSsr(
       props: {
         userID: 0,
         username: "",
+        isVenue: 0,
         displayName: "",
         payment: 0,
         description:"",
