@@ -3,10 +3,18 @@ import { withSessionRoute } from "../../../utils/lib/withSession";
 import executeQuery from '../../../utils/db';
 import bcrypt from 'bcrypt';
 export default withSessionRoute(loginRoute);
-
+interface login{
+  userID: number;
+  username: string;
+  password: string;
+}
 async function loginRoute(req : NextApiRequest,res :NextApiResponse) {
-  // get user from database then:
-  const result : any = await executeQuery('SELECT userID,password from tblUsers where username ="' + req.body.username+ '"')
+  const result = await executeQuery({
+    sql: "SELECT userID,password from tblUsers where username = ?",
+    timeout: 10000,
+    values: [req.body.username]
+  }) as login[];
+
   if(result[0] === undefined){
     res.redirect('/?error=User not found&text=signup');
   }else{

@@ -22,9 +22,6 @@ async function socketHandler(req: NextApiRequest, res: any) {
     if(id !== undefined){
     socket.join(id.toString());
     }
-    if(req.session.user !== undefined) {
-      const result = await executeQuery(`update tblUsers set socketID = '${socket.id}' where userID = ${req.session.user.id}`);
-    }
     messageHandler(io, socket);
   };
 

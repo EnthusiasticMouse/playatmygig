@@ -13,16 +13,22 @@ interface Convos {
   recipientID?: number;
   username: string;
 }
+
 export const getServerSideProps = withSessionSsr(
   async function getServerSideProps(context) {
     const { req } = context;
     if (req.session.user !== undefined) {
-      const toConvos = (await executeQuery(
-        `SELECT tblConvos.recieverID,tblConvos.convoID,tblUsers.username FROM tblConvos INNER JOIN tblUsers ON tblUsers.userID = tblConvos.recieverID WHERE (tblConvos.starterID = ${req.session.user.id});`
-      )) as Convos[];
-      const fromConvos = (await executeQuery(
-        `SELECT tblConvos.starterID,tblConvos.convoID,tblUsers.username FROM tblConvos INNER JOIN tblUsers ON tblUsers.userID = tblConvos.starterID WHERE (tblConvos.recieverID = ${req.session.user.id});`
-      )) as Convos[];
+      const toConvos = await executeQuery({
+        sql: "SELECT tblConvos.recieverID,tblConvos.convoID,tblUsers.username FROM tblConvos INNER JOIN tblUsers ON tblUsers.userID = tblConvos.recieverID WHERE (tblConvos.starterID = ?);",
+        timeout: 10000,
+        values: [req.session.user.id.toString()]
+      }) as any[];
+      const fromConvos = await executeQuery({
+        sql: "SELECT tblConvos.starterID,tblConvos.convoID,tblUsers.username FROM tblConvos INNER JOIN tblUsers ON tblUsers.userID = tblConvos.starterID WHERE (tblConvos.recieverID = ?);",
+        timeout: 10000,
+        values: [req.session.user.id.toString()]
+      }) as any[];
+      
       const convos = toConvos.concat(fromConvos);
       const newConvos = convos.map((convo, i) => {
         if (convo.starterID) {

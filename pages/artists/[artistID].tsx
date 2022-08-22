@@ -15,7 +15,13 @@ export const getServerSideProps = withSessionSsr(
     const {artistID} = query;
     if (artistID !== undefined && req.session.user !== undefined) {
       const userID = parseInt(artistID as string)
-      const response = await executeQuery(`SELECT displayName,userID,description,username,isVenue,published from tblUsers WHERE isVenue=0 AND userID=${userID}`) as UserDB[];
+      //const response = await executeQuery(`SELECT displayName,userID,description,username,isVenue,published from tblUsers WHERE isVenue=0 AND userID=${userID}`) as UserDB[];
+      const response = await executeQuery({
+        sql: "SELECT displayName,userID,description,username,isVenue,published from tblUsers WHERE isVenue=0 AND userID=?",
+        timeout: 10000,
+        values: [userID.toString()]
+      }) as UserDB[];
+      
       if(response.length > 0 && response[0].published == 1){
         return {
           props:{

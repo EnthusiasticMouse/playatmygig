@@ -13,6 +13,12 @@ export interface UserDB{
   description?: string;
   published: number;
 }
+export interface ConvoDB{
+  convoID: number;
+  StarterID: number;
+  recieverID: number;
+}
+
 export interface ServerToClientEvents {
   noArg: () => void;
   basicEmit: (a: number, b: string, c: Buffer) => void;

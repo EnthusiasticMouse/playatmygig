@@ -7,25 +7,47 @@ import Chat from "../../components/Chat/chat";
 import executeQuery from "../../utils/db";
 import { SocketContext, socket } from '../../context/socket';
 import { useRouter } from "next/router";
-
+import { ConvoDB,UserDB} from "../../types/types";
 export const getServerSideProps = withSessionSsr(
   async function getServerSideProps(context) {
     const { req } = context;
-    if (req.session.user !== undefined && context.params !== undefined) {
-      const convoID = (await executeQuery(
+    if (req.session.user !== undefined && context.params?.id !== undefined) {
+      /*const convoID = (await executeQuery(
         `SELECT tblConvos.convoID FROM tblConvos WHERE (tblConvos.starterID = ${req.session.user.id} AND tblConvos.recieverID = ${context.params.id}) OR (tblConvos.starterID = ${context.params.id} AND tblConvos.recieverID = ${req.session.user.id})`
-      )) as any[];
+      )) as ConvoDB[];*/
+      const convoID = await executeQuery({
+        sql: "SELECT tblConvos.convoID FROM tblConvos WHERE (tblConvos.starterID = ? AND tblConvos.recieverID =?) OR (tblConvos.starterID = ? AND tblConvos.recieverID = ?)",
+        timeout: 10000,
+        values: [req.session.user.id.toString(),context.params.id.toString(),context.params.id.toString(),req.session.user.id.toString()]
+      }) as {convoID: number}[];
+      
       if (convoID.length > 0) {
-        const results = (await executeQuery(
+        /*const results = (await executeQuery(
           `SELECT username from tblUsers where userID = ${req.session.user.id}`
-        )) as any[];
-        const recipient = (await executeQuery(
-          `SELECT displayName from tblUsers where userID = ${context.params.id}`
-        )) as any[];
+        )) as any[];*/
+        const results = await executeQuery({
+          sql: "SELECT username from tblUsers where userID =?",
+          timeout: 10000,
+          values: [req.session.user.id.toString()]
+        }) as UserDB[];
+
+        const recipient = await executeQuery({
+          sql: "SELECT displayName from tblUsers where userID =?",
+          timeout: 10000,
+          values: [context.params.id.toString()]
+        }) as UserDB[];
+
         //const newConvo = await executeQuery(`INSERT INTO tblConvos (starterID, recieverID) VALUES (${req.session.user.id}, ${context.params.id})`) as any[];
-        const messages = (await executeQuery(
+
+        /*const messages = (await executeQuery(
           `SELECT tblMessages.*,tblUsers.username from tblMessages INNER JOIN tblUsers ON tblUsers.userID = tblMessages.authorID where convoID = ${convoID[0].convoID}`
-        )) as any[];
+        )) as any[];*/
+
+        const messages = await executeQuery({
+          sql: "SELECT tblMessages.*,tblUsers.username from tblMessages INNER JOIN tblUsers ON tblUsers.userID = tblMessages.authorID where convoID = ?",
+          timeout: 10000,
+          values: [convoID[0].convoID.toString()]
+        }) as any[];
         //console.log(messages);
         return {
           props: {
@@ -44,21 +66,35 @@ export const getServerSideProps = withSessionSsr(
           },
         };
       } else if(req.session.user.id.toString() != context.params.id){
-        const results = (await executeQuery(
-          `SELECT username from tblUsers where userID = ${req.session.user.id}`
-        )) as any[];
-        const recipient = (await executeQuery(
-          `SELECT username from tblUsers where userID = ${context.params.id}`
-        )) as any[];
-        await executeQuery(
-          `INSERT INTO tblConvos (starterID, recieverID) VALUES (${req.session.user.id}, ${context.params.id})`
-        );
-        const newConvoID = (await executeQuery(
-          `SELECT tblConvos.convoID FROM tblConvos WHERE (tblConvos.starterID = ${req.session.user.id} AND tblConvos.recieverID = ${context.params.id}) OR (tblConvos.starterID = ${context.params.id} AND tblConvos.recieverID = ${req.session.user.id})`
-        )) as any[];
-        const messages = (await executeQuery(
-          `SELECT tblMessages.*,tblUsers.username from tblMessages INNER JOIN tblUsers ON tblUsers.userID = tblMessages.authorID where convoID = ${newConvoID[0].convoID}`
-        )) as any[];
+        const results = await executeQuery({
+          sql: "SELECT username from tblUsers where userID =?",
+          timeout: 10000,
+          values: [req.session.user.id.toString()]
+        }) as UserDB[];
+
+        const recipient = await executeQuery({
+          sql: "SELECT displayName from tblUsers where userID =?",
+          timeout: 10000,
+          values: [context.params.id.toString()]
+        }) as UserDB[];
+
+        await executeQuery({
+          sql: "INSERT INTO tblConvos (starterID, recieverID) VALUES (?,?)",
+          timeout: 10000,
+          values: [req.session.user.id.toString(),context.params.id.toString()]
+        })
+        
+        const newConvoID  = await executeQuery({
+          sql: "SELECT tblConvos.convoID FROM tblConvos WHERE (tblConvos.starterID = ? AND tblConvos.recieverID =?) OR (tblConvos.starterID = ? AND tblConvos.recieverID = ?)",
+          timeout: 10000,
+          values: [req.session.user.id.toString(),context.params.id.toString(),context.params.id.toString(),req.session.user.id.toString()]
+        }) as {convoID: number}[];
+
+        const messages = await executeQuery({
+          sql: "SELECT tblMessages.*,tblUsers.username from tblMessages INNER JOIN tblUsers ON tblUsers.userID = tblMessages.authorID where convoID = ?",
+          timeout: 10000,
+          values: [convoID[0].convoID.toString()]
+        }) as any[];
         //console.log(messages);
         return {
           props: {

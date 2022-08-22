@@ -12,9 +12,13 @@ import Link from "next/link";
 export const getServerSideProps = withSessionSsr(
   async function getServerSideProps({ req }) {
     if (req.session.user !== undefined) {
-      const response = (await executeQuery(
-        `SELECT * from tblUsers where userID = ${req.session.user.id};`
-      )) as UserDB[];
+      
+      const response = await executeQuery({
+        sql: "SELECT * from tblUsers where userID =?;",
+        timeout: 10000,
+        values: [req.session.user.id.toString()]
+      }) as UserDB[];
+
       if (response.length > 0) {
         return {
           props: {
