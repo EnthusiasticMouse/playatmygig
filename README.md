@@ -11,4 +11,6 @@ Live Messaging service using Webhooks API
 
 ## Pictures: ##
 
-![alt text](Isolated.png "Title")
+![Explore Page](examplePictures/Desktop-Explore.png "Explore page")
+![Login Page](examplePictures/Desktop-Home-Login.png "Login page")
+![Profile Page](examplePictures/Desktop-Profile.png "Profile page")
